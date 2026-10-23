@@ -14,8 +14,9 @@
   <p>ویلا، سوئیت و کلبه با بهترین قیمت</p>
   <div class="search">
     <div><label>شهر</label>
-      <select id="city"><option value="">همه</option><option>فرح‌آباد</option><option>ساری</option></select></div>
-    <div><label>تعداد نفرات</label><input type="number" id="guests" min="1" placeholder="مثلا 6"></div>
+      <select id="city"><option value="">همه</option><option value="فرح‌آباد">فرح‌آباد</option><option>ساری</option></select></div>
+    <div><label>جستجوی نام</label><input id="q" placeholder="مثلا استخر"></div>
+    <div><label>تعداد نفرات</label><input type="text" inputmode="numeric" id="guests" placeholder="مثلا 6"></div>
     <div style="align-self:end"><button onclick="render()" style="width:100%">جستجو</button></div>
   </div>
 </section>
@@ -26,7 +27,7 @@
     <div class="row"><label class="muted">نوع اقامتگاه</label>
       <select id="type"><option value="">همه</option><option>ویلا</option><option>سوئیت</option><option>کلبه</option></select></div>
     <div class="row"><label class="muted">حداکثر قیمت هر شب (تومان)</label>
-      <input type="number" id="maxPrice" placeholder="مثلا 5000000"></div>
+      <input type="text" inputmode="numeric" id="maxPrice" placeholder="مثلا 5000000"></div>
     <div class="row"><label class="chk"><input type="checkbox" id="pool"> استخر دارد</label></div>
     <div class="row"><label class="muted">مرتب‌سازی</label>
       <select id="sort"><option value="">پیش‌فرض</option><option value="cheap">ارزان‌ترین</option><option value="exp">گران‌ترین</option><option value="rate">بیشترین امتیاز</option></select></div>
@@ -43,11 +44,13 @@
 <script src="villas-data.js"></script>
 <script>
 const fmt = n => n.toLocaleString("fa-IR");
+const nd = s => String(s).replace(/[۰-۹]/g,c=>c.charCodeAt(0)-1776).replace(/[٠-٩]/g,c=>c.charCodeAt(0)-1632);
+const norm = s => String(s).replace(/\u064A/g,"ی").replace(/\u0643/g,"ک").replace(/[\u200c\s]/g,"");
 function render(){
   const city=document.getElementById("city").value, type=document.getElementById("type").value;
-  const guests=+document.getElementById("guests").value||0, max=+document.getElementById("maxPrice").value||0;
+  const guests=+nd(document.getElementById("guests").value)||0, max=+nd(document.getElementById("maxPrice").value)||0, q=norm(document.getElementById("q").value);
   const pool=document.getElementById("pool").checked, sort=document.getElementById("sort").value;
-  let r=VILLAS.filter(v=>(!city||v.city===city)&&(!type||v.type===type)&&v.capacity>=guests&&(!max||v.price<=max)&&(!pool||v.amenities.includes("استخر")));
+  let r=VILLAS.filter(v=>(!city||norm(v.city)===norm(city))&&(!type||v.type===type)&&(!q||norm(v.title+v.city+v.type+v.desc+v.amenities.join("")).includes(q))&&v.capacity>=guests&&(!max||v.price<=max)&&(!pool||v.amenities.includes("استخر")));
   if(sort==="cheap")r.sort((a,b)=>a.price-b.price);
   if(sort==="exp")r.sort((a,b)=>b.price-a.price);
   if(sort==="rate")r.sort((a,b)=>b.rating-a.rating);
@@ -61,6 +64,7 @@ function render(){
         <div class="price">${fmt(v.price)} تومان / شب</div></div>
     </a>`).join("")||"<p>موردی یافت نشد.</p>";
 }
+document.querySelectorAll("select,input").forEach(e=>e.addEventListener(e.tagName==="SELECT"||e.type==="checkbox"?"change":"input",render));
 render();
 </script>
 </body>

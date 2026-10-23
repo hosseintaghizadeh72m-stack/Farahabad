@@ -34,12 +34,17 @@ function firstOfJMonth(y, m, startDate){
   return addDays(d, -(p.d - 1));
 }
 
-function jalaliPicker(input, onChange){
+const GMON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+// فصل: بهار ۱-۳، تابستان ۴-۶، پاییز ۷-۹، زمستان ۱۰-۱۲
+function seasonOf(m){ return m<=3?"spring":m<=6?"summer":m<=9?"autumn":"winter"; }
+
+function jalaliPicker(input, onChange, getMin){
   const today = new Date(); today.setHours(12,0,0,0);
   const todayISO = toISO(today);
   const start = input.dataset.iso ? fromISO(input.dataset.iso) : today;
   const sp = jParts(start);
   let view = { y: sp.y, m: sp.m };
+  const thisY = jParts(today).y;
 
   const pop = document.createElement("div");
   pop.className = "jcal";
@@ -49,31 +54,54 @@ function jalaliPicker(input, onChange){
   input.parentNode.style.position = "relative";
   input.parentNode.appendChild(pop);
 
-  input.addEventListener("click", () => { pop.hidden = !pop.hidden; draw(); });
+  input.addEventListener("click", e => {
+    e.stopPropagation();
+    pop.hidden = !pop.hidden;
+    const min = getMin && getMin();
+    if (!pop.hidden && !input.dataset.iso && min){ const p = jParts(fromISO(min)); view = { y: p.y, m: p.m }; }
+    draw();
+  });
   document.addEventListener("click", e => { if (!input.parentNode.contains(e.target)) pop.hidden = true; });
 
   function draw(){
+    const minISO = (getMin && getMin()) || todayISO;
     const first = firstOfJMonth(view.y, view.m, today);
-    let days = "";
-    let d = new Date(first);
+    let cells = "", d = new Date(first), last = first;
     while (cmpYM(jParts(d), view) === 0){
       const iso = toISO(d);
-      const disabled = iso < todayISO ? "disabled" : "";
-      const sel = input.dataset.iso === iso ? "sel" : "";
-      days += `<button type="button" class="day ${sel}" data-iso="${iso}" ${disabled}>${fa(jParts(d).d)}</button>`;
-      d = addDays(d, 1);
+      const dis = iso < todayISO || iso < minISO ? "disabled" : "";
+      const cls = ["day", input.dataset.iso === iso ? "sel" : "", iso === todayISO ? "today" : "", d.getDay() === 5 ? "fri" : ""].join(" ");
+      cells += `<button type="button" class="${cls}" data-iso="${iso}" ${dis}><b>${fa(jParts(d).d)}</b><small>${d.getDate()}</small></button>`;
+      last = d; d = addDays(d, 1);
     }
     const blanks = "<span></span>".repeat((first.getDay()+1) % 7);
+    const g1 = GMON[first.getMonth()], g2 = GMON[last.getMonth()];
+    const grange = (g1 === g2 ? g1 : g1 + " - " + g2) + " " + last.getFullYear();
+    const mopts = JMONTHS.map((n,i)=>`<option value="${i+1}" ${i+1===view.m?"selected":""}>${n}</option>`).join("");
+    let yopts = ""; for (let y = thisY; y <= thisY+3; y++) yopts += `<option value="${y}" ${y===view.y?"selected":""}>${fa(y)}</option>`;
+    pop.dataset.season = seasonOf(view.m);
     pop.innerHTML = `
-      <div class="jhead">
-        <button type="button" data-nav="1">›</button>
-        <strong>${JMONTHS[view.m-1]} ${fa(view.y)}</strong>
-        <button type="button" data-nav="-1">‹</button>
+      <div class="jtop">
+        <button type="button" data-nav="-1">→ ماه قبل</button>
+        <button type="button" data-nav="1">ماه بعد ←</button>
       </div>
-      <div class="jgrid">${JWEEK.map(w=>`<span class="wd">${w}</span>`).join("")}${blanks}${days}</div>`;
+      <div class="jsel"><select class="jm">${mopts}</select><select class="jy">${yopts}</select></div>
+      <div class="jg">${grange}</div>
+      <div class="jgrid">
+        <div class="wdbar">${JWEEK.map(w=>`<span>${w}</span>`).join("")}</div>
+        ${blanks}${cells}
+      </div>
+      <button type="button" class="jtoday" data-today="1">برو به امروز</button>`;
   }
 
+  pop.addEventListener("change", e => {
+    if (e.target.classList.contains("jm")) view.m = +e.target.value;
+    if (e.target.classList.contains("jy")) view.y = +e.target.value;
+    draw();
+  });
   pop.addEventListener("click", e => {
+    e.stopPropagation();
+    if (e.target.closest("[data-today]")){ const p = jParts(today); view = { y: p.y, m: p.m }; draw(); return; }
     const nav = e.target.closest("[data-nav]");
     if (nav){
       let m = view.m + Number(nav.dataset.nav), y = view.y;

@@ -37,11 +37,28 @@ button,.btn{background:#b5532f;color:#fff;border:0;padding:11px 18px;border-radi
 footer{text-align:center;color:#888;padding:30px;font-size:13px}
 @media(max-width:760px){.layout,.detail{grid-template-columns:1fr}.booking{position:static}}
 .row{position:relative}
-.jcal{position:absolute;top:100%;right:0;left:0;z-index:20;background:#fff;color:#222;border:1px solid #ddd;border-radius:12px;box-shadow:0 6px 20px #0002;padding:10px;margin-top:4px;width:280px;max-width:100%}
-.jhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.jhead button{background:#eef3f5;color:#2c4a5a;padding:4px 12px;font-size:18px}
-.jgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
-.jgrid .wd{font-size:12px;color:#888;padding:4px 0}
-.jgrid .day{background:#f5f5f5;color:#222;padding:7px 0;font-size:14px;border-radius:8px}
-.jgrid .day:disabled{background:none;color:#bbb;cursor:not-allowed}
-.jgrid .day.sel{background:#b5532f;color:#fff}
+.jcal{--c:#66bb6a;position:absolute;top:100%;right:0;z-index:20;background:#f4f4f4;color:#222;border:1px solid #ddd;border-radius:16px;box-shadow:0 8px 24px #0003;padding:12px;margin-top:4px;width:320px;max-width:92vw}
+.jcal[data-season=spring]{--c:#66bb6a}
+.jcal[data-season=summer]{--c:#1b6b35}
+.jcal[data-season=autumn]{--c:#8e1b3a}
+.jcal[data-season=winter]{--c:#2b6cb0}
+.jtop{display:flex;justify-content:space-between}
+.jtop button{background:none;color:var(--c);padding:4px 6px;font-size:14px;font-weight:bold}
+.jsel{display:flex;gap:8px;justify-content:center;margin:6px 0}
+.jsel select{width:auto;border:2px solid var(--c);color:var(--c);font-weight:bold;border-radius:20px;padding:4px 10px}
+.jg{text-align:center;font-size:13px;color:#555;margin-bottom:8px}
+.jgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;background:#fff;border-radius:12px;padding:8px}
+.wdbar{grid-column:1/-1;display:grid;grid-template-columns:repeat(7,1fr);background:var(--c);color:#fff;border-radius:10px;padding:6px 0;font-weight:bold;margin-bottom:4px}
+.jgrid .day{background:none;color:#222;padding:3px 0;border-radius:8px;display:flex;flex-direction:column;line-height:1.2}
+.jgrid .day b{font-size:16px}
+.jgrid .day small{font-size:10px;color:#999}
+.jgrid .day.fri{background:#fdeeee;color:#d32f2f}
+.jgrid .day.today{outline:2px solid var(--c)}
+.jgrid .day:disabled{opacity:.35;cursor:not-allowed}
+.jgrid .day.sel{background:var(--c);color:#fff}
+.jgrid .day.sel small{color:#fff}
+.jtoday{width:100%;margin-top:10px;background:var(--c)}
+.contact{display:grid;gap:8px;margin-top:10px}
+.contact a{display:block;color:#fff;padding:10px;border-radius:10px;text-align:center}
+.contact .wa{background:#25a244}.contact .tg{background:#2b8fd6}.contact .sm{background:#555}
+.note{font-size:12px;color:#777;margin-top:8px}

@@ -39,11 +39,16 @@ else {
       <div class="row"><label class="muted">نام و نام خانوادگی</label><input id="name"></div>
       <div class="row"><label class="muted">شماره موبایل</label><input id="phone" type="tel"></div>
       <div class="total" id="total"></div>
-      <button style="width:100%" onclick="send()">ارسال درخواست</button>
+      <button style="width:100%" onclick="send()">ثبت درخواست رزرو</button>
+      <div class="contact" id="contact" hidden></div>
+      <p class="note">پرداخت آنلاین وجود ندارد. درخواست شما برای میزبان ارسال می‌شود و پس از تأیید، هماهنگی پرداخت از طریق تماس انجام می‌شود.</p>
     </aside>
   </div>`;
   jalaliPicker(document.getElementById("in"), calc);
-  jalaliPicker(document.getElementById("out"), calc);
+  jalaliPicker(document.getElementById("out"), calc, () => {
+    const i = document.getElementById("in").dataset.iso;
+    return i ? toISO(addDays(fromISO(i), 1)) : null;
+  });
 }
 function nights(){
   const a=fromISO(document.getElementById("in").dataset.iso||"2000-01-01"), b=fromISO(document.getElementById("out").dataset.iso||"2000-01-02");
@@ -54,9 +59,15 @@ function calc(){
   document.getElementById("total").textContent = n>0 ? `${fmt(n)} شب × ${fmt(v.price)} = ${fmt(n*v.price)} تومان` : "";
 }
 function send(){
-  const n=nights(), name=document.getElementById("name").value, phone=document.getElementById("phone").value;
-  if(!(n>0)||!name||!phone){ alert("لطفا تاریخ‌ها، نام و شماره موبایل را درست وارد کنید."); return; }
-  alert("درخواست شما ثبت شد (نمایشی). در مرحله بعد به سرور وصل می‌شود.");
+  const n=nights(), name=document.getElementById("name").value.trim(), phone=document.getElementById("phone").value.trim();
+  if(!(n>0)||!name||!phone){ alert("لطفا تاریخ‌ها (خروج بعد از ورود)، نام و شماره موبایل را وارد کنید."); return; }
+  const inV=document.getElementById("in").value, outV=document.getElementById("out").value, g=document.getElementById("g").value;
+  const msg=`درخواست رزرو\nاقامتگاه: ${v.title}\nورود: ${inV}\nخروج: ${outV}\n(${fmt(n)} شب)\nتعداد نفرات: ${g}\nمبلغ تقریبی: ${fmt(n*v.price)} تومان\nنام: ${name}\nموبایل: ${phone}`;
+  const e=encodeURIComponent(msg);
+  let h=`<a class="wa" href="https://wa.me/${OWNER.phone}?text=${e}" target="_blank">ارسال به واتساپ</a>`;
+  if(OWNER.telegram) h+=`<a class="tg" href="https://t.me/${OWNER.telegram}?text=${e}" target="_blank">ارسال به تلگرام</a>`;
+  h+=`<a class="sm" href="sms:+${OWNER.phone}?body=${e}">ارسال پیامک</a>`;
+  const c=document.getElementById("contact"); c.innerHTML="<p class='muted'>برای تکمیل ثبت، یکی از راه‌ها را بزنید تا درخواست برای میزبان ارسال شود:</p>"+h; c.hidden=false;
 }
 </script>
 </body>
