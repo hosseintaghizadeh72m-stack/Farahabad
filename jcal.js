@@ -112,7 +112,7 @@ function jalaliPicker(input, onChange, getMin){
     if (day && !day.disabled){
       input.dataset.iso = day.dataset.iso;
       const p = jParts(fromISO(day.dataset.iso));
-      input.value = `${fa(p.d)} ${JMONTHS[p.m-1]} ${fa(p.y)}`;
+      input.value = `${fa(p.d)} ${JMONTHS[p.m-1]} ${p.y.toLocaleString("fa-IR",{useGrouping:false})}`;
       pop.hidden = true;
       if (onChange) onChange();
     }
