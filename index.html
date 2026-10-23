@@ -57,7 +57,7 @@ function render(){
   document.getElementById("count").textContent=fmt(r.length)+" اقامتگاه یافت شد";
   document.getElementById("list").innerHTML=r.map(v=>`
     <a class="card" href="villa.html?id=${v.id}">
-      <div class="thumb" style="background:${v.color}">${v.emoji}</div>
+      <div class="thumb" style="background:${v.color}">${v.img?`<img src="${v.img}" alt="${v.title}">`:v.emoji}</div>
       <div class="info"><h3>${v.title}</h3>
         <div class="muted">${v.city} · ${fmt(v.rooms)} خواب · تا ${fmt(v.capacity)} نفر</div>
         <div class="muted">⭐ ${fmt(v.rating)} (${fmt(v.reviews)} نظر)</div>

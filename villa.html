@@ -22,10 +22,10 @@ else {
   app.innerHTML = `
   <div class="detail">
     <div>
-      <div class="thumb" style="background:${v.color}">${v.emoji}</div>
+      <div class="thumb" style="background:${v.color}">${v.img?`<img src="${v.img}" alt="${v.title}">`:v.emoji}</div>
       <h1 style="margin-top:12px">${v.title}</h1>
       <p class="muted">${v.city} · ${v.type} · ⭐ ${fmt(v.rating)} (${fmt(v.reviews)} نظر)</p>
-      <div class="box"><h3>درباره این اقامتگاه</h3><p>${v.desc}</p>
+      <div class="box"><h3>درباره این اقامتگاه</h3><p style="white-space:pre-line">${v.desc}</p>
         <p class="muted">${fmt(v.rooms)} خواب · ظرفیت ${fmt(v.capacity)} نفر</p></div>
       <div class="box"><h3>امکانات</h3>${v.amenities.map(a=>`<span class="tag">${a}</span>`).join("")}</div>
       <div class="box"><h3>قوانین</h3><p class="muted">ساعت ورود ۱۴ و خروج ۱۲. حفظ آرامش همسایگان الزامی است.</p></div>
