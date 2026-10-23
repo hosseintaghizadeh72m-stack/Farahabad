@@ -5,10 +5,10 @@ const OWNER = { phone: "989033462221", telegram: "farahabadir" };
 // عکس‌ها فعلا نمونه‌اند؛ بعدا آدرس عکس واقعی را در "images" می‌گذاریم.
 const VILLAS = [
   {
-    id: 6, title: "ویلا ساحلی استخردار در فرح آباد", city: "فرح‌آباد", type: "ویلا",
-    price: 5000000, rooms: 3, capacity: 10, rating: 5, reviews: 0,
+    id: 6, title: "ویلای ساحلی استخردار در فرح آباد", city: "فرح‌آباد", type: "ویلا",
+    price: 5000000, rooms: 2, capacity: 10, rating: 5, reviews: 0,
     amenities: ["استخر", "پارکینگ", "فوتبال دستی", "بیلیارد"],
-    img: "villa1.webp", emoji: "🏊", color: "#2c4a5a",
+    img: "villa1.webp", gallery: ["villa1.webp","gal-IMG_20260908_WA0017.webp","gal-IMG_20260908_WA0019.webp","gal-IMG_20260908_WA0021.webp","gal-IMG_20260908_WA0023.webp","gal-IMG_20260909_185859.webp"], emoji: "🏊", color: "#2c4a5a",
     desc: "یک باب ویلا استخردار دربست واقع در فرح آباد\nاستخر دارای تصفیه آب آنی\n۱۸۰ متر بنا ، حیاط دار ، درب ریموت\nفوتبال دستی، بیلیارد ، نزدیک دریا با کلیه امکانات رفاهی"
   },
   {
@@ -45,5 +45,12 @@ const VILLAS = [
     amenities: ["استخر", "جکوزی", "آلاچیق", "وای‌فای", "پارکینگ"],
     emoji: "🏊", color: "#319795",
     desc: "ویلای مدرن با استخر و جکوزی، نزدیک شهر ساری."
+  },
+  {
+    id: 7, title: "سوئیت ساحلی در فرح آباد", city: "فرح‌آباد", type: "ویلا",
+    price: 1200000, rooms: 1, capacity: 6, rating: 5, reviews: 0,
+    amenities: [],
+    img: "suite1.webp", gallery: ["suite1.webp", "suite-1.webp", "suite-2.webp", "suite-3.webp", "suite-4.webp", "suite-5.webp", "suite-6.webp"], emoji: "🏖️", color: "#4a6fa5",
+    desc: "یک باب سوئیت ساحلی واقع در فرح آباد\n۷۰ متر بنا ، کوچه اختصاصی\nفاصله تا دریا : ۸۰۰ متر\nدارای کلیه امکانات رفاهی"
   }
 ];

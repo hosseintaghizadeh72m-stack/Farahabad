@@ -78,7 +78,7 @@ function jalaliPicker(input, onChange, getMin){
     const g1 = GMON[first.getMonth()], g2 = GMON[last.getMonth()];
     const grange = (g1 === g2 ? g1 : g1 + " - " + g2) + " " + last.getFullYear();
     const mopts = JMONTHS.map((n,i)=>`<option value="${i+1}" ${i+1===view.m?"selected":""}>${n}</option>`).join("");
-    let yopts = ""; for (let y = thisY; y <= thisY+3; y++) yopts += `<option value="${y}" ${y===view.y?"selected":""}>${fa(y)}</option>`;
+    let yopts = ""; for (let y = thisY; y <= thisY+3; y++) yopts += `<option value="${y}" ${y===view.y?"selected":""}>${y.toLocaleString("fa-IR",{useGrouping:false})}</option>`;
     pop.dataset.season = seasonOf(view.m);
     pop.innerHTML = `
       <div class="jtop">
