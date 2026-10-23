@@ -2,9 +2,9 @@
 body{font-family:Tahoma,"Vazirmatn",sans-serif;background:#f7f7f8;color:#222;line-height:1.7}
 a{color:inherit;text-decoration:none}
 header{background:#fff;box-shadow:0 1px 6px #0001;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
-header.top{flex-direction:column;justify-content:center;text-align:center;gap:6px;padding:22px 20px 18px;position:static;width:66.67%;margin:0 auto;min-height:300px;background:linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,.3)),url(header.webp) center/cover no-repeat}
-header.top .logo{flex-direction:column;font-size:26px;gap:10px;align-items:center}
-header.top .logo img{height:100px;width:100px}
+header.top{flex-direction:column;justify-content:center;text-align:center;gap:6px;padding:22px 20px 18px;position:static}
+header.top .logo{flex-direction:column;font-size:26px;gap:10px}
+header.top .logo img{height:150px;width:150px}
 .logo{font-weight:bold;font-size:20px;color:#2c4a5a;display:flex;align-items:center;gap:8px}.logo img{height:44px;width:44px}
 .hero{background:linear-gradient(135deg,#2c4a5a,#b5532f);color:#fff;padding:50px 20px;text-align:center}
 .hero h1{font-size:26px;margin-bottom:8px}

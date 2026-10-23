@@ -52,5 +52,12 @@ const VILLAS = [
     amenities: [],
     img: "suite1.webp", gallery: ["suite1.webp", "suite-1.webp", "suite-2.webp", "suite-3.webp", "suite-4.webp", "suite-5.webp", "suite-6.webp"], emoji: "🏖️", color: "#4a6fa5",
     desc: "یک باب سوئیت ساحلی واقع در فرح آباد\n۷۰ متر بنا ، کوچه اختصاصی\nفاصله تا دریا : ۸۰۰ متر\nدارای کلیه امکانات رفاهی"
+  },
+  {
+    id: 8, title: "ویلای ساحلی استخر جکوزی در فرح آباد", city: "فرح‌آباد", type: "ویلا",
+    price: 5000000, rooms: 2, capacity: 10, rating: 5, reviews: 0,
+    amenities: ["استخر", "جکوزی", "پارکینگ", "اسپیکر", "فوتبال دستی", "باربیکیو", "توالت فرنگی"],
+    img: "jacuzzi1.webp", gallery: ["jacuzzi1.webp","jac-IMG_20260908_153659_071.webp","jac-IMG_20260908_153652_166.webp","jac-IMG_20260908_153701_780.webp","jac-IMG_20260908_153705_614.webp","jac-IMG_20260908_153708_239.webp","jac-IMG_20260908_153646_323.webp"], emoji: "🛁", color: "#2a6f7f",
+    desc: "یک باب ویلا استخردار دربست واقع در فرح آباد\nاستخر و جکوزی دارای تصفیه آب آنی\n۱۸۰ متر بنا ، نیم پیلوت ، پارکینگ ، درب ریموت\nفوتبال دستی، جکوزی، اسپیکر و کلیه امکانات رفاهی"
   }
 ];
