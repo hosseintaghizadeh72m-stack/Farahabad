@@ -29,7 +29,7 @@ const VILLAS = [
     id: 7, title: "سوئیت ساحلی در فرح آباد", city: "فرح‌آباد", type: "ویلا",
     price: 1200000, rooms: 1, capacity: 6, rating: 5, reviews: 0,
     amenities: [],
-    img: "suite1.webp", gallery: ["suite1.webp", "suite-1.webp", "suite-2.webp", "suite-3.webp", "suite-4.webp", "suite-5.webp", "suite-6.webp"], emoji: "🏖️", color: "#4a6fa5",
+    img: "suite-6.webp", gallery: ["suite-6.webp", "suite1.webp", "suite-1.webp", "suite-2.webp", "suite-3.webp", "suite-4.webp", "suite-5.webp"], emoji: "🏖️", color: "#4a6fa5",
     desc: "یک باب سوئیت ساحلی واقع در فرح آباد\n۷۰ متر بنا ، کوچه اختصاصی\nفاصله تا دریا : ۸۰۰ متر\nدارای کلیه امکانات رفاهی"
   },
   {
