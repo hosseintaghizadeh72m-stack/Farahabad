@@ -7,11 +7,10 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="top"><a href="index.html" class="logo"><img src="logo.png" alt="farahabad.ir">farahabad.ir</a><a href="index.html" class="muted">← بازگشت به لیست</a></header>
+<header><a href="index.html" class="logo"><img src="logo.png" alt="farahabad.ir">farahabad.ir</a><a href="index.html" class="muted">← بازگشت به لیست</a></header>
 <div class="container" id="app"></div>
 <footer>© farahabad.ir</footer>
 <script src="villas-data.js"></script>
-<script src="jcal.js"></script>
 <script>
 const fmt = n => n.toLocaleString("fa-IR");
 const v = VILLAS.find(x=>x.id==new URLSearchParams(location.search).get("id"));
@@ -22,37 +21,30 @@ else {
   app.innerHTML = `
   <div class="detail">
     <div>
-      <div class="thumb" style="background:${v.color}">${v.img?`<img src="${v.img}" alt="${v.title}">`:v.emoji}</div>
+      <div class="thumb" style="background:${v.color}">${v.emoji}</div>
       <h1 style="margin-top:12px">${v.title}</h1>
       <p class="muted">${v.city} · ${v.type} · ⭐ ${fmt(v.rating)} (${fmt(v.reviews)} نظر)</p>
-      <div class="box"><h3>درباره این اقامتگاه</h3><p style="white-space:pre-line">${v.desc}</p>
-        <p class="muted">${v.rooms===1?"تک":fmt(v.rooms)} خواب · ظرفیت ${fmt(v.capacity)} نفر</p></div>
-      ${v.gallery?`<div class="box"><h3>تصاویر</h3><div class="gal">${v.gallery.map(g=>`<img src="${g}" alt="" data-full="${g}">`).join("")}</div></div>`:""}
+      <div class="box"><h3>درباره این اقامتگاه</h3><p>${v.desc}</p>
+        <p class="muted">${fmt(v.rooms)} خواب · ظرفیت ${fmt(v.capacity)} نفر</p></div>
       <div class="box"><h3>امکانات</h3>${v.amenities.map(a=>`<span class="tag">${a}</span>`).join("")}</div>
       <div class="box"><h3>قوانین</h3><p class="muted">ساعت ورود ۱۴ و خروج ۱۲. حفظ آرامش همسایگان الزامی است.</p></div>
     </div>
     <aside class="box booking">
       <h3>درخواست رزرو</h3>
       <div class="price">${fmt(v.price)} تومان / شب</div>
-      <div class="row"><label class="muted">تاریخ ورود</label><input id="in" readonly></div>
-      <div class="row"><label class="muted">تاریخ خروج</label><input id="out" readonly></div>
+      <div class="row"><label class="muted">تاریخ ورود</label><input type="date" id="in"></div>
+      <div class="row"><label class="muted">تاریخ خروج</label><input type="date" id="out"></div>
       <div class="row"><label class="muted">تعداد نفرات</label><input type="number" id="g" min="1" max="${v.capacity}" value="2"></div>
       <div class="row"><label class="muted">نام و نام خانوادگی</label><input id="name"></div>
       <div class="row"><label class="muted">شماره موبایل</label><input id="phone" type="tel"></div>
       <div class="total" id="total"></div>
-      <button style="width:100%" onclick="send()">ثبت درخواست رزرو</button>
-      <div class="contact" id="contact" hidden></div>
-      <p class="note">پرداخت آنلاین وجود ندارد. درخواست شما برای میزبان ارسال می‌شود و پس از تأیید، هماهنگی پرداخت از طریق تماس انجام می‌شود.</p>
+      <button style="width:100%" onclick="send()">ارسال درخواست</button>
     </aside>
   </div>`;
-  jalaliPicker(document.getElementById("in"), calc);
-  jalaliPicker(document.getElementById("out"), calc, () => {
-    const i = document.getElementById("in").dataset.iso;
-    return i ? toISO(addDays(fromISO(i), 1)) : null;
-  });
+  ["in","out"].forEach(i=>document.getElementById(i).addEventListener("change",calc));
 }
 function nights(){
-  const a=fromISO(document.getElementById("in").dataset.iso||"2000-01-01"), b=fromISO(document.getElementById("out").dataset.iso||"2000-01-02");
+  const a=new Date(document.getElementById("in").value), b=new Date(document.getElementById("out").value);
   return Math.round((b-a)/86400000);
 }
 function calc(){
@@ -60,25 +52,10 @@ function calc(){
   document.getElementById("total").textContent = n>0 ? `${fmt(n)} شب × ${fmt(v.price)} = ${fmt(n*v.price)} تومان` : "";
 }
 function send(){
-  const n=nights(), name=document.getElementById("name").value.trim(), phone=document.getElementById("phone").value.trim();
-  if(!(n>0)||!name||!phone){ alert("لطفا تاریخ‌ها (خروج بعد از ورود)، نام و شماره موبایل را وارد کنید."); return; }
-  const inV=document.getElementById("in").value, outV=document.getElementById("out").value, g=document.getElementById("g").value;
-  const msg=`درخواست رزرو\nاقامتگاه: ${v.title}\nورود: ${inV}\nخروج: ${outV}\n(${fmt(n)} شب)\nتعداد نفرات: ${g}\nمبلغ تقریبی: ${fmt(n*v.price)} تومان\nنام: ${name}\nموبایل: ${phone}`;
-  const e=encodeURIComponent(msg);
-  let h=`<a class="wa" href="https://wa.me/${OWNER.phone}?text=${e}" target="_blank">ارسال به واتساپ</a>`;
-  if(OWNER.telegram) h+=`<a class="tg" href="https://t.me/${OWNER.telegram}?text=${e}" target="_blank">ارسال به تلگرام</a>`;
-  h+=`<a class="sm" href="sms:+${OWNER.phone}?body=${e}">ارسال پیامک</a>`;
-  const c=document.getElementById("contact"); c.innerHTML="<p class='muted'>برای تکمیل ثبت، یکی از راه‌ها را بزنید تا درخواست برای میزبان ارسال شود:</p>"+h; c.hidden=false;
+  const n=nights(), name=document.getElementById("name").value, phone=document.getElementById("phone").value;
+  if(!(n>0)||!name||!phone){ alert("لطفا تاریخ‌ها، نام و شماره موبایل را درست وارد کنید."); return; }
+  alert("درخواست شما ثبت شد (نمایشی). در مرحله بعد به سرور وصل می‌شود.");
 }
 </script>
 </body>
 </html>
-<div id="lb" class="lb" hidden><button class="lb-x" aria-label="بستن">✕</button><img id="lbImg" alt=""></div>
-<script>
-document.addEventListener("click",e=>{
-  const t=e.target;
-  const lb=document.getElementById("lb");
-  if(t.dataset&&t.dataset.full){ document.getElementById("lbImg").src=t.dataset.full; lb.hidden=false; }
-  else if(t.closest&&t.closest(".lb")&&!t.matches("img#lbImg")){ lb.hidden=true; }
-});
-</script>
