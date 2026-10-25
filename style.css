@@ -88,6 +88,6 @@ body{font-family:"IRANYekanX",Vazirmatn,Tahoma,sans-serif;font-size:14px;line-he
 
 /* header banner: image sized to the white header area (1220×298) */
 header.top{width:100%;height:298px;min-height:0;padding:0;justify-content:center;background:url(header.webp) center/cover no-repeat;position:relative}
-header.top .logo{position:relative;z-index:1;color:#fff;background:#1e3440cc;padding:6px 18px;border-radius:999px;text-shadow:0 1px 3px #000}
+header.top .logo{position:relative;z-index:1;color:#fff;background:none;padding:6px 18px;border-radius:999px;text-shadow:0 1px 3px #000}
 header.top .logo img{background:#fff;border-radius:50%;padding:4px;box-sizing:content-box}
 header.top .muted{position:relative;z-index:1;color:#fff;text-shadow:0 1px 4px #000a}
