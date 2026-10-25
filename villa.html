@@ -23,13 +23,13 @@ else {
   <div class="detail">
     <div>
       <div class="thumb" style="background:${v.color}">${v.img?`<img src="${v.img}" alt="${v.title}">`:v.emoji}</div>
-      <h1 style="margin-top:12px">${v.title}</h1>
+      <h1 class="vtitle" style="margin-top:12px">${v.title}</h1>
       <p class="muted">${v.city} · ${v.type} · ⭐ ${fmt(v.rating)} (${fmt(v.reviews)} نظر)</p>
       <div class="box"><h3>درباره این اقامتگاه</h3><p style="white-space:pre-line">${v.desc}</p>
-        <p class="muted">${v.rooms===1?"تک":fmt(v.rooms)} خواب · ظرفیت ${fmt(v.capacity)} نفر</p></div>
+        <p class="spec">${v.rooms===1?"تک":fmt(v.rooms)} خواب · ظرفیت ${fmt(v.capacity)} نفر</p></div>
       ${v.gallery?`<div class="box"><h3>تصاویر</h3><div class="gal">${v.gallery.map(g=>`<img src="${g}" alt="" data-full="${g}">`).join("")}</div></div>`:""}
       <div class="box"><h3>امکانات</h3>${v.amenities.map(a=>`<span class="tag">${a}</span>`).join("")}</div>
-      <div class="box"><h3>قوانین</h3><p class="muted">ساعت ورود ۱۴ و خروج ۱۲. حفظ آرامش همسایگان الزامی است.</p></div>
+      <div class="box"><h3>قوانین</h3><p class="muted">ساعت ورود ۱۴ و خروج ۱۲.${v.title.includes("سوئیت")?"":" حفظ آرامش همسایگان الزامی است."}</p></div>
     </div>
     <aside class="box booking">
       <h3>درخواست رزرو</h3>

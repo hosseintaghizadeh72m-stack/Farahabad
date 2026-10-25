@@ -12,7 +12,7 @@ const VILLAS = [
     desc: "یک باب ویلا استخردار دربست واقع در فرح آباد\nاستخر دارای تصفیه آب آنی\n۱۸۰ متر بنا ، حیاط دار ، درب ریموت\nفوتبال دستی، بیلیارد ، نزدیک دریا با کلیه امکانات رفاهی"
   },
   {
-    id: 7, title: "سوئیت ساحلی در فرح آباد", city: "فرح‌آباد", type: "ویلا",
+    id: 7, title: "سوئیت ساحلی در فرح آباد ۱", city: "فرح‌آباد", type: "ویلا",
     price: 1200000, rooms: 1, capacity: 6, rating: 5, reviews: 0,
     amenities: [],
     img: "suite-6.webp", gallery: ["suite-6.webp", "suite1.webp", "suite-1.webp", "suite-2.webp", "suite-3.webp", "suite-4.webp", "suite-5.webp"], emoji: "🏖️", color: "#4a6fa5",
@@ -26,7 +26,7 @@ const VILLAS = [
     desc: "یک باب ویلا استخردار دربست واقع در فرح آباد\nاستخر و جکوزی دارای تصفیه آب آنی\n۱۸۰ متر بنا ، نیم پیلوت ، پارکینگ ، درب ریموت\nفوتبال دستی، جکوزی، اسپیکر و کلیه امکانات رفاهی"
   },
   {
-    id: 9, title: "سوئیت ساحلی در فرح آباد", city: "فرح‌آباد", type: "ویلا",
+    id: 9, title: "سوئیت ساحلی در جاده پلاژ ۱", city: "فرح‌آباد", type: "ویلا",
     price: 2000000, rooms: 1, capacity: 4, rating: 5, reviews: 0,
     amenities: ["پارکینگ", "آلاچیق"],
     img: "sn-WA0003.webp", gallery: ["sn-WA0003.webp", "sn-WA0001.webp", "sn-WA0002.webp", "sn-WA0004.webp", "sn-WA0005.webp", "sn-WA0006.webp", "sn-WA0007.webp", "sn-WA0008.webp", "sn-WA0010.webp", "sn-WA0011.webp"], emoji: "🏖️", color: "#4a6fa5",

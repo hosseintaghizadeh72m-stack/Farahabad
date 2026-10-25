@@ -73,3 +73,15 @@ footer{text-align:center;color:#888;padding:30px;font-size:13px}
 .lb img#lbImg{max-width:none;width:auto;height:auto;margin:40px 0;cursor:zoom-out}
 .lb-x{position:fixed;top:10px;left:10px;background:#fff;border:0;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;z-index:100}
 
+
+/* ---- Jabama-style typography (sizes/weights/line-heights from jabama.com) ---- */
+@font-face{font-family:"IRANYekanX";src:url("fonts/IRANYekanXVF-s.woff2") format("woff2");font-weight:100 900;font-display:swap}
+body{font-family:"IRANYekanX",Vazirmatn,Tahoma,sans-serif;font-size:14px;line-height:20px}
+.card h3{font-size:16px;font-weight:600;line-height:24px;margin:8px 0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.box h3,.filters h3,.booking h3{font-size:18px;font-weight:700;line-height:28px}
+.detail h1,h1.vtitle{font-size:18px;font-weight:700;line-height:28px}
+.muted,.card .muted{font-size:12px;line-height:16px}
+.spec{font-size:12px;line-height:16px;color:#777;margin:0}
+.price{font-size:16px;font-weight:700;line-height:24px}
+.tag{font-size:12px;line-height:16px}
+.chk,input,select,textarea,button,.btn{font-size:14px;line-height:20px}
